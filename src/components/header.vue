@@ -443,9 +443,13 @@ body {
 }
 .headerContainer {
   background: #ffffff !important;
+  // background-color: yellow !important;
   user-select: none;
-  padding-left: 10rem;
-  @extend .start;
+
+  // padding:0.5rem 0rem;
+  // padding-left: 5rem;
+  @extend .center;
+  // padding-left: -5rem;;
   //  background-color: red;
   .headerContent {
     @extend .side;
@@ -462,13 +466,17 @@ body {
 
     .functionsContent {
       // background-color: aqua;
-
-      margin-right: 5px;
+      // width: 3rem;
+      // width: 10px;
+      @extend .center;
+      margin-right: 2px;
       color: $functionsColor;
+      font-size: 1rem;
       cursor: pointer;
       height: 100%;
-      padding: 3px 0px;
-      border-bottom: 0.2rem solid transparent;
+      padding: 1rem 0px;
+      font-size: 1rem;
+      border-bottom: 0.1rem solid transparent;
 
       &.active {
         color: $headerFontColor;
@@ -479,6 +487,8 @@ body {
       color: $functionsHovorColor;
       border-bottom: 0.2rem solid $functionsBottomColor;
     }
+
+
   }
 }
 
@@ -518,8 +528,10 @@ body {
   @extend .side;
   position: relative;
   margin-left: 2.5rem;
+ 
   .searchContianer {
     position: absolute;
+    // background: aqua;
     // margin-right: 15rem;
     //  background-color: red;
     //  padding: 0rem 10rem;
@@ -571,6 +583,8 @@ body {
       }
     }
   }
+
+
 
   //创作者中心
   .centerContainerDisapear {
@@ -667,6 +681,61 @@ body {
   }
 }
 
+@media screen and (max-width:1350px)
+  {
+
+
+    .searchContianer{
+      margin-left: 5rem;
+    }
+    .searchContianer .el-input__inner {
+      width: 10rem !important;
+      
+    }
+
+
+
+    .centerContainer{
+      margin-left:20rem !important;
+    }
+
+    .memberAndAvatarContainer{
+ 
+      transform: translateX(-5rem);
+    }
+    
+    .functionsContent{
+      // width: 45px;
+ 
+      // background-color: yellow;
+      // position: absolute;
+      // font-size: 0.6rem !important;
+     width: 3rem;
+      // color: red !important;
+    }
+
+    .functionsContainer{
+    // background-color: purple;
+    }
+
+     .headerContainer{
+      width: 100vw !important;
+      // background-color: yellow !important;
+      padding-right: 5rem;
+      padding-left: 9rem;
+     }
+    // .logoContainer{}
+
+    
+  }
+
+  @media screen and (max-width:1490px)
+  {
+    .headerContent{
+      margin-left: -4rem;
+    }
+  }
+
 //点击输入表单之后，搜索按钮样式改变
 .focused-btn {
   border: 0.1rem solid transparent !important; // 蓝色边框
@@ -731,10 +800,15 @@ body {
     margin-right: 0.6rem;
     img {
       margin-right: 0.1rem;
-      width: 1.8rem;
-      height: 2rem;
+      width: 1.5rem;
+      height: 1.7rem;
     }
     color: #8b929f;
+    font-size: 0.9rem;
+    p{
+      width: 2rem;
+    }
+
     @extend .side;
   }
 
