@@ -248,8 +248,8 @@
               </div>
 
               <div class="loginOutContianer">
-                 <p>我的设置</p>
-                 <p>退出登录</p>
+                <p>我的设置</p>
+                <p>退出登录</p>
               </div>
             </div>
           </div>
@@ -444,9 +444,8 @@ body {
 .headerContainer {
   background: #ffffff !important;
   user-select: none;
-  display: flex;
-  justify-content: center;
-  align-content: center;
+  padding-left: 10rem;
+  @extend .start;
   //  background-color: red;
   .headerContent {
     @extend .side;
@@ -518,9 +517,10 @@ body {
 .searchAndCenterContainer {
   @extend .side;
   position: relative;
-
+  margin-left: 2.5rem;
   .searchContianer {
     position: absolute;
+    // margin-right: 15rem;
     //  background-color: red;
     //  padding: 0rem 10rem;
     @extend .side;
@@ -543,7 +543,7 @@ body {
       // width: 35px;
       // height: 8px;
 
-      width: 10rem;
+      width: 20rem;
       height: 2.3rem;
     }
 
@@ -583,7 +583,7 @@ body {
       @extend .side;
     }
 
-    margin-left: 16rem;
+    margin-left: 26.5rem;
     .el-button {
       height: 2.3rem;
       font-size: 1rem;
@@ -725,7 +725,7 @@ body {
   @extend .side;
 
   // background-color: purple;
-  margin-left: 27rem;
+  margin-left: 37rem;
 
   .memberContainer {
     margin-right: 0.6rem;
@@ -788,13 +788,10 @@ body {
 }
 
 @media screen and (max-width: 1249px) {
-    .memberContainer p {
-      display: none;
-    }
-
-
-
+  .memberContainer p {
+    display: none;
   }
+}
 
 .avatar {
   position: relative;
@@ -802,11 +799,11 @@ body {
   .avatarListContainer {
     position: absolute;
     padding: 0.8rem;
- 
+
     margin-left: -15rem;
     border-radius: 2%;
     margin-top: 0.3rem;
-    background-color: #FFFFFF;
+    background-color: #ffffff;
     box-shadow: 0rem 0rem 0.1rem 0rem #ccc;
     z-index: 999;
     cursor: pointer;
@@ -823,12 +820,12 @@ body {
 
       .avatarListMiddle {
         @extend .side;
-        border-bottom: 0.1rem solid #F1F2F5;
+        border-bottom: 0.1rem solid #f1f2f5;
         // background-color: blue;
 
         .avatarListMiddleItem {
           display: flex;
-        // background-color: red;
+          // background-color: red;
           flex-direction: column;
           justify-content: center;
           align-items: center;
@@ -850,7 +847,7 @@ body {
         @extend .side;
         flex-wrap: wrap;
         margin-top: 1rem;
-        border-bottom: 0.1rem solid #F1F2F5;
+        border-bottom: 0.1rem solid #f1f2f5;
         padding-left: 0.5rem;
         .avatarListBottomItem {
           margin-bottom: 1rem;
@@ -866,11 +863,11 @@ body {
           }
         }
       }
-      .loginOutContianer{
+      .loginOutContianer {
         @extend .side;
         font-size: 1rem;
-        color: #8A919F;
-        font-size:0.8rem ;
+        color: #8a919f;
+        font-size: 0.8rem;
         margin: 1rem 0rem;
         margin-bottom: 0.5rem;
       }
@@ -880,19 +877,17 @@ body {
 
 @keyframes expandWidth {
   from {
-    width: 10rem; // 初始宽度
   }
   to {
-    width: 20rem; // 目标宽度
+    width: 25rem; // 目标宽度
   }
 }
 
 @keyframes expandWidthBack {
   from {
-    width: 20rem; // 初始宽度
+    width: 25rem; // 初始宽度
   }
   to {
-    width: 10rem; // 目标宽度
   }
 }
 
