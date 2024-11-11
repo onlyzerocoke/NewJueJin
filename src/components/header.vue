@@ -1,3 +1,4 @@
+
 <template>
   <div class="headerContainer">
     <div class="headerContent">
@@ -21,6 +22,11 @@
           :class="currentIndex == index ? 'active' : ''"
         >
           {{ item }}
+        </div>
+
+        <div class="appContainer">
+          <div>APP</div>
+          <div>插件</div>
         </div>
       </div>
 
@@ -161,6 +167,7 @@
             v-show="zhongHover"
             @mouseenter="mouseInZhong"
             @mouseleave="mouseLeaveZhong"
+            @click="mouseInZhong"
           >
             <div class="zhongListContent">
               <div
@@ -282,8 +289,7 @@ let functionsArr: Ref<string[]> = ref([
   "活动",
   "AI刷题",
   "商城",
-  "APP",
-  "插件",
+
 ]);
 let currentIndex: Ref<number> = ref(0);
 
@@ -490,6 +496,24 @@ body {
 
 
   }
+}
+
+.appContainer {
+  //   background-color: yellow;
+  @extend .center;
+  div {
+    margin-right: 0.5rem;
+    color: $functionsColor;
+    width: 2rem;
+    // background-color: red;
+    cursor: pointer;
+  }
+}
+@media screen and (max-width: 1260px) {
+  .appContainer {
+    display: none;
+  }
+
 }
 
 .hiddenLogoBig650 {
