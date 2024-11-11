@@ -355,8 +355,6 @@ let throttle = (func: any, delay: number) => {
 // 应用节流机制到鼠标事件
 const mouseInZhong = throttle(() => {
   zhongHover.value = true;
-  // console.log("zhongHover.value ",zhongHover.value );
-  
 }, 200);
 
 const mouseLeaveZhong = throttle(() => {
@@ -754,17 +752,6 @@ body {
 
     
   }
-
-  @media screen and (max-width: 1260px) {
-    .searchContianer {
-      width: 20rem !important;
-      margin-left:-1rem;
-      
-    }
-
-
-
-}
 
   @media screen and (max-width:1490px)
   {
