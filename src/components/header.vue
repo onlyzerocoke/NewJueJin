@@ -35,9 +35,15 @@
           <div>首页</div>
           <div
             class="triangle"
-            @click="rotateTriangle"
+            @click="functionsListShow"
             :class="triangleFlag == 1 ? 'triangleChangeBlue' : ''"
           ></div>
+        </div>
+
+        <div class="functionsList" v-if="triangleFlag">
+           <div class="functionsListItem" v-for="(item,index) in functionsArr" :key="index">
+              {{ item }}
+           </div>
         </div>
       </div>
 
@@ -289,7 +295,6 @@ let functionsArr: Ref<string[]> = ref([
   "活动",
   "AI刷题",
   "商城",
-
 ]);
 let currentIndex: Ref<number> = ref(0);
 
@@ -356,7 +361,6 @@ let throttle = (func: any, delay: number) => {
 const mouseInZhong = throttle(() => {
   zhongHover.value = true;
   // console.log("zhongHover.value ",zhongHover.value );
-  
 }, 200);
 
 const mouseLeaveZhong = throttle(() => {
@@ -388,6 +392,23 @@ const handleAvatarList = (event: any) => {
   }
 };
 
+//小于1180下的列表
+//控制列表是否出现
+
+const functionsListShow = (event: any) => {
+  triangleFlag.value = !triangleFlag.value;
+  event.stopPropagation();
+};
+
+//点击空白处关闭functionsList
+const handleFunctionsList = (event: any) => {
+  const functionsListElement = document.querySelector(".functionsList");
+  if (functionsListElement && !functionsListElement.contains(event.target)) {
+    triangleFlag.value = false;
+    event.stopPropagation();
+  }
+};
+
 onMounted(() => {
   watch(
     () => showAvatarListContainer.value,
@@ -399,11 +420,26 @@ onMounted(() => {
       }
     }
   );
+
+  watch(
+    () => triangleFlag.value,
+    async (newVal) => {
+      if (newVal) {
+        await nextTick();
+        if (triangleFlag.value)
+          document.addEventListener("click", handleFunctionsList);
+      }
+    }
+  );
+
+
 });
 
 onBeforeMount(() => {
   document.removeEventListener("click", handleAvatarList);
 });
+
+
 </script>
   
   <style lang="scss">
@@ -495,8 +531,6 @@ body {
       color: $functionsHovorColor;
       border-bottom: 0.2rem solid $functionsBottomColor;
     }
-
-
   }
 }
 
@@ -515,7 +549,6 @@ body {
   .appContainer {
     display: none;
   }
-
 }
 
 .hiddenLogoBig650 {
@@ -530,8 +563,31 @@ body {
   display: none;
 }
 
-.small1180ShowContent {
-  @extend .side;
+.small1180Show {
+  position: relative;
+  .small1180ShowContent {
+    @extend .side;
+    color: $functionsBottomColor;
+  }
+
+  .functionsList {
+    position: absolute;
+    width: 10rem;
+    // height:5rem;
+    // background-color: red;
+    margin-top: 0.6rem;
+    margin-left: -4rem;
+    border-radius: 1rem;
+    
+    .functionsListItem{
+      padding: 1rem 2rem;
+      // background-color: yellow;
+      @extend .center;
+      background-color: white;
+      font-size: 0.8rem;
+      color: #515767;
+    }
+  }
 }
 
 .triangle {
@@ -554,7 +610,7 @@ body {
   @extend .side;
   position: relative;
   margin-left: 2.5rem;
- 
+
   .searchContianer {
     position: absolute;
     // background: aqua;
@@ -609,8 +665,6 @@ body {
       }
     }
   }
-
-
 
   //创作者中心
   .centerContainerDisapear {
@@ -707,71 +761,57 @@ body {
   }
 }
 
-@media screen and (max-width:1350px)
-  {
-
-
-    .searchContianer{
-      margin-left: 5rem;
-    }
-    .searchContianer .el-input__inner {
-      width: 10rem !important;
-      
-    }
-
-
-
-    .centerContainer{
-      margin-left:20rem !important;
-    }
-
-    .memberAndAvatarContainer{
- 
-      transform: translateX(-5rem);
-    }
-    
-    .functionsContent{
-      // width: 45px;
- 
-      // background-color: yellow;
-      // position: absolute;
-      // font-size: 0.6rem !important;
-     width: 3rem;
-      // color: red !important;
-    }
-
-    .functionsContainer{
-    // background-color: purple;
-    }
-
-     .headerContainer{
-      width: 100vw !important;
-      // background-color: yellow !important;
-      padding-right: 5rem;
-      padding-left: 9rem;
-     }
-    // .logoContainer{}
-
-    
+@media screen and (max-width: 1350px) {
+  .searchContianer {
+    margin-left: 5rem;
+  }
+  .searchContianer .el-input__inner {
+    width: 10rem !important;
   }
 
-  @media screen and (max-width: 1260px) {
-    .searchContianer {
-      width: 20rem !important;
-      margin-left:-1rem;
-      
-    }
+  .centerContainer {
+    margin-left: 20rem !important;
+  }
 
+  .memberAndAvatarContainer {
+    transform: translateX(-5rem);
+  }
 
+  .functionsContent {
+    // width: 45px;
 
+    // background-color: yellow;
+    // position: absolute;
+    // font-size: 0.6rem !important;
+    width: 3rem;
+    // color: red !important;
+  }
+
+  .functionsContainer {
+    // background-color: purple;
+  }
+
+  .headerContainer {
+    width: 100vw !important;
+    // background-color: yellow !important;
+    padding-right: 5rem;
+    padding-left: 9rem;
+  }
+  // .logoContainer{}
 }
 
-  @media screen and (max-width:1490px)
-  {
-    .headerContent{
-      margin-left: -4rem;
-    }
+@media screen and (max-width: 1260px) {
+  .searchContianer {
+    width: 20rem !important;
+    margin-left: -1rem;
   }
+}
+
+@media screen and (max-width: 1490px) {
+  .headerContent {
+    margin-left: -4rem;
+  }
+}
 
 //点击输入表单之后，搜索按钮样式改变
 .focused-btn {
@@ -842,7 +882,7 @@ body {
     }
     color: #8b929f;
     font-size: 0.9rem;
-    p{
+    p {
       width: 2rem;
     }
 
