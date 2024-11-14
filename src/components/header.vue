@@ -32,7 +32,7 @@
 
       <div class="small1180Show">
         <div class="small1180ShowContent">
-          <div>首页</div>
+          <div class="wordContainer">{{ functionsArr[functionsListItemCurrentIndex] }}</div>
           <div
             class="triangle"
             @click="functionsListShow"
@@ -41,9 +41,15 @@
         </div>
 
         <div class="functionsList" v-if="triangleFlag">
-           <div class="functionsListItem" v-for="(item,index) in functionsArr" :key="index">
-              {{ item }}
-           </div>
+          <div
+            class="functionsListItem"
+            v-for="(item, index) in functionsArr"
+            :key="index"
+            @click="clickFunctionsListItem(index)"
+            :class="functionsListItemCurrentIndex == index ? 'active' : ''"
+          >
+            {{ item }}
+          </div>
         </div>
       </div>
 
@@ -400,6 +406,10 @@ const functionsListShow = (event: any) => {
   event.stopPropagation();
 };
 
+let functionsListItemCurrentIndex: Ref<number> = ref(0);
+const clickFunctionsListItem = (index: number) => {
+  functionsListItemCurrentIndex.value = index;
+};
 //点击空白处关闭functionsList
 const handleFunctionsList = (event: any) => {
   const functionsListElement = document.querySelector(".functionsList");
@@ -431,15 +441,11 @@ onMounted(() => {
       }
     }
   );
-
-
 });
 
 onBeforeMount(() => {
   document.removeEventListener("click", handleAvatarList);
 });
-
-
 </script>
   
   <style lang="scss">
@@ -490,7 +496,7 @@ body {
   // background-color: yellow !important;
   user-select: none;
 
-  // padding:0.5rem 0rem;
+  // padding:0.3rem 0rem;
   // padding-left: 5rem;
   @extend .center;
   // padding-left: -5rem;;
@@ -520,7 +526,7 @@ body {
       height: 100%;
       padding: 1rem 0px;
       font-size: 1rem;
-      border-bottom: 0.1rem solid transparent;
+      border-bottom: 0.2rem solid transparent;
 
       &.active {
         color: $headerFontColor;
@@ -563,9 +569,19 @@ body {
   display: none;
 }
 
+.active {
+  color: $headerFontColor !important;
+}
+
 .small1180Show {
   position: relative;
   .small1180ShowContent {
+    .wordContainer
+    {
+      @extend .center;
+        width: 3.1rem;
+        // background-color: red;
+    }
     @extend .side;
     color: $functionsBottomColor;
   }
@@ -578,8 +594,8 @@ body {
     margin-top: 0.6rem;
     margin-left: -4rem;
     border-radius: 1rem;
-    
-    .functionsListItem{
+
+    .functionsListItem {
       padding: 1rem 2rem;
       // background-color: yellow;
       @extend .center;
