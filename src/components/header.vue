@@ -1,4 +1,3 @@
-
 <template>
   <div class="headerContainer">
     <div class="headerContent">
@@ -281,7 +280,7 @@
 <script setup lang="ts">
 import {
   ref,
-  Ref,
+  // Ref,
   onMounted,
   onBeforeMount,
   watch,
@@ -492,8 +491,8 @@ body {
   margin: 0;
 }
 .headerContainer {
-  background: #ffffff !important;
-  // background-color: yellow !important;
+  // background: #ffffff !important;
+  background-color: yellow !important;
   user-select: none;
 
   // padding:0.3rem 0rem;
@@ -604,6 +603,34 @@ body {
       color: #515767;
     }
   }
+}
+
+@media screen and (max-width: 1180px) {
+   .headerContainer{
+    margin-left: 0.1rem;
+   }
+  .logoContainer{
+    // margin-right:-1rem;
+  }
+
+  .small1180ShowContent{
+    // margin-left:-1rem;
+
+    .triangle{
+    // margin-left:-0.2rem;
+    margin-right: 13rem;
+  }
+  }
+
+
+
+  // .memberAndAvatarContainer{
+  //  transform: translate(-30rem);
+  // }
+
+  // .searchAndCenterContainer{
+  //   transform: translate(12rem);
+  // }
 }
 
 .triangle {
