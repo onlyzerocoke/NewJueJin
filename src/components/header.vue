@@ -31,7 +31,9 @@
 
       <div class="small1180Show">
         <div class="small1180ShowContent">
-          <div class="wordContainer">{{ functionsArr[functionsListItemCurrentIndex] }}</div>
+          <div class="wordContainer">
+            {{ functionsArr[functionsListItemCurrentIndex] }}
+          </div>
           <div
             class="triangle"
             @click="functionsListShow"
@@ -575,11 +577,10 @@ body {
 .small1180Show {
   position: relative;
   .small1180ShowContent {
-    .wordContainer
-    {
+    .wordContainer {
       @extend .center;
-        width: 3.1rem;
-        // background-color: red;
+      width: 3.1rem;
+      // background-color: red;
     }
     @extend .side;
     color: $functionsBottomColor;
@@ -606,31 +607,91 @@ body {
 }
 
 @media screen and (max-width: 1180px) {
-   .headerContainer{
+  .headerContainer {
     margin-left: 0.1rem;
-   }
-  .logoContainer{
-    // margin-right:-1rem;
+  }
+  .logoContainer {
   }
 
-  .small1180ShowContent{
-    // margin-left:-1rem;
-
-    .triangle{
-    // margin-left:-0.2rem;
-    margin-right: 13rem;
+  .small1180ShowContent {
+    .triangle {
+      margin-right: 13rem;
+    }
   }
+}
+
+@media screen and (max-width: 960px) {
+
+  .searchContianer .el-input__inner {
+    width: 15rem !important;
   }
 
+  .headerContainer {
+    margin-left: 0.15rem;
+  }
+
+  .logoContainer {
+    transform: translate(2rem);
+  }
+  .small1180Show {
+    transform: translate(2rem);
+  }
+
+  .small1180ShowContent {
+    .triangle {
+      margin-right: 10rem;
+    }
+  }
+
+  .memberAndAvatarContainer {
+    transform: translate(-7rem) !important;
+    .memberContainer {
+      display: none !important;
+    }
+  }
+}
+
+@media screen and (max-width: 800px) {
+  .headerContainer {
+    // margin-left: 0.5rem;
+    background-color: yellow !important;
+    padding-right: 15rem !important;
+  }
+
+  .logoContainer {
+    transform: translate(5rem);
+  }
+
+  .small1180Show {
+    transform: translate(5em);
+  }
+
+  .centerContent{
+    display: none !important;
+  }
+ 
+
+  .searchAndCenterContainer{
+    transform: translate(20rem);
+   
+    .searchContianer .el-input__inner {
+    width: 10rem !important;
+  
+    // background-color: purple;
+  }
+    .searchContianer{
+      width: 13rem !important;
+    }
+  }
+  .memberAndAvatarContainer{
+    transform: translate(-1rem) !important;
+    background-color: blue;
+
+  }
+
+  
 
 
-  // .memberAndAvatarContainer{
-  //  transform: translate(-30rem);
-  // }
-
-  // .searchAndCenterContainer{
-  //   transform: translate(12rem);
-  // }
 }
 
 .triangle {
