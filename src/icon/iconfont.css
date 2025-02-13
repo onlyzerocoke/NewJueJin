@@ -2,14 +2,14 @@
   font-family: "iconfont"; /* Project id 4495576 */
   /* Color fonts */
   src: 
-       url('iconfont.woff2?t=1730815952096') format('woff2'),
-       url('iconfont.woff?t=1730815952096') format('woff'),
-       url('iconfont.ttf?t=1730815952096') format('truetype');
+       url('iconfont.woff2?t=1734969382469') format('woff2'),
+       url('iconfont.woff?t=1734969382469') format('woff'),
+       url('iconfont.ttf?t=1734969382469') format('truetype');
 }
 
 .iconfont {
   font-family: "iconfont" !important;
-  font-size: 3px;
+  font-size: 16px;
   font-style: normal;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
@@ -21,6 +21,10 @@
 
 .icon-tixing-tianchong:before {
   content: "\e716";
+}
+
+.icon-tixing-tianchong-copy:before {
+  content: "\eca8";
 }
 
 .icon-xiangyoujiantou:before {

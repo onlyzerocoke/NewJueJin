@@ -20,6 +20,13 @@
       "unicode_decimal": 59158
     },
     {
+      "icon_id": "42746567",
+      "name": "提醒-填充",
+      "font_class": "tixing-tianchong-copy",
+      "unicode": "eca8",
+      "unicode_decimal": 60584
+    },
+    {
       "icon_id": "630094",
       "name": "向右箭头",
       "font_class": "xiangyoujiantou",

@@ -1,297 +1,153 @@
 <template>
-  <div class="headerContainer">
-    <div class="headerContent">
-      <!-- logo图片 -->
-      <div class="logoContainer">
-        <img
-          src="../image/header/indexLogo.svg"
-          alt=""
-          class="hiddenLogoSmall650"
-        />
-        <img src="../assets/vue.svg" alt="" class="hiddenLogoBig650" />
-      </div>
-
-      <!-- 首页~插件选项 -->
-      <div class="functionsContainer big1180Show">
+  <header class="headerContainer">
+    <!-- logo和首页 -->
+    <div class="logoContainer">
+      <img src="../image/header/indexLogoSmall.svg" alt="" />
+      <div class="indexContainer">
+        <p>{{ functionsArr[currentIndex] }}</p>
         <div
-          class="functionsContent"
-          v-for="(item, index) in functionsArr"
-          :key="index"
-          @click="selectFunctionsArrItem(index)"
-          :class="currentIndex == index ? 'active' : ''"
-        >
-          {{ item }}
-        </div>
-
-        <div class="appContainer">
-          <div>APP</div>
-          <div>插件</div>
-        </div>
-      </div>
-
-      <div class="small1180Show">
-        <div class="small1180ShowContent">
-          <div class="wordContainer">
-            {{ functionsArr[functionsListItemCurrentIndex] }}
-          </div>
-          <div
-            class="triangle"
-            @click="functionsListShow"
-            :class="triangleFlag == 1 ? 'triangleChangeBlue' : ''"
-          ></div>
-        </div>
-
-        <div class="functionsList" v-if="triangleFlag">
-          <div
-            class="functionsListItem"
-            v-for="(item, index) in functionsArr"
-            :key="index"
-            @click="clickFunctionsListItem(index)"
-            :class="functionsListItemCurrentIndex == index ? 'active' : ''"
-          >
-            {{ item }}
-          </div>
-        </div>
-      </div>
-
-      <!-- 奇妙夜图片 -->
-      <!-- <div class="qimiao">
-        <img src=".././image/header/AI.avis" alt="" />
-      </div> -->
-
-      <!-- 搜索框~创作者中心 -->
-      <div class="searchAndCenterContainer">
-        <div class="searchContianer">
-          <el-input
-            v-model="searchInput"
-            placeholder="探索稀土掘金"
-            @focus="clickInput"
-            @blur="blurInput"
-            :class="isInputFocused ? 'focused-input' : 'focused-inputBack'"
-          ></el-input>
-
-          <el-button
-            type="primary"
-            icon="Search"
-            color="#5E6372"
-            ref="searchBtn"
-            :class="isInputFocused ? 'focused-btn' : ''"
-            :style="isInputFocused ? { backgroundColor: '#EAF2FF' } : {}"
-          ></el-button>
-        </div>
-
-        <div
-          class="centerContainer"
-          :class="isInputFocused ? 'centerContainerDisapear' : ''"
-        >
-          <div class="centerContent">
-            <el-button type="primary">创作者中心</el-button>
-            <div
-              class="triangleContainer"
-              @mouseenter="showHoverContent"
-              @mouseleave="hideHoverContent"
-            >
-              <div class="centerTriangle"></div>
-              <div
-                class="centerHoverContent"
-                v-show="isHovering"
-                @mouseenter="showHoverContent"
-                @mouseleave="hideHoverContent"
-              >
-                <div class="centerHover">
-                  <!-- 写文章~草稿箱 -->
-                  <div class="centerHoverTop">
-                    <div
-                      class="topItem"
-                      v-for="(item, index) in centerHoverArr"
-                      :key="index"
-                    >
-                      <img :src="item.imgSrc" alt="" />
-
-                      <text>{{ item.todo }}</text>
-                    </div>
-                  </div>
-
-                  <div class="centerHoverBottom">
-                    <div class="inspirationAndMoreContaienr">
-                      <div class="inspiration">创作灵感</div>
-                      <div class="more">
-                        查看更多<i
-                          class="icon iconfont icon-xiangyoujiantou"
-                        ></i>
-                      </div>
-                    </div>
-
-                    <div class="allKindInspirationContainer">
-                      <div class="inspirationItem">
-                        <div>
-                          <el-tag type="warning">活动</el-tag>
-                        </div>
-                        <div class="inspirationActivity">
-                          在掘金写技术好文,瓜分万元现金大奖瓜分...
-                        </div>
-                      </div>
-
-                      <div class="inspirationItem">
-                        <div>
-                          <el-tag type="warning">活动</el-tag>
-                        </div>
-                        <div class="inspirationActivity">
-                          技术专题27期|后端jiava技术创意冠军角逐赛
-                        </div>
-                      </div>
-
-                      <div class="inspirationItem">
-                        <div>
-                          <el-tag type="primary">话题</el-tag>
-                        </div>
-                        <div class="inspirationActivity">
-                          #豆包MarsCode AI练中学
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <!-- 会员~头像 -->
-      <div class="memberAndAvatarContainer">
-        <!-- 会员 -->
-        <div class="memberContainer">
-          <img src="../image/header/huiyuan.png" alt="" />
-          <p>会员</p>
-        </div>
-
-        <!-- 钟 -->
-        <div
-          class="zhong"
-          @mouseenter="mouseInZhong"
-          @mouseleave="mouseLeaveZhong"
-        >
-          <i class="icon iconfont icon-tixing-tianchong" v-if="zhongHover"></i>
-          <i class="icon iconfont icon-tixing" v-if="!zhongHover"></i>
-
-          <div
-            class="zhongListContainer"
-            v-show="zhongHover"
-            @mouseenter="mouseInZhong"
-            @mouseleave="mouseLeaveZhong"
-            @click="mouseInZhong"
-          >
-            <div class="zhongListContent">
-              <div
-                class="zhongListItem"
-                v-for="(item, index) in zhongListArr"
-                :key="index"
-              >
-                {{ item }}
-              </div>
-            </div>
-          </div>
-        </div>
-
-        <!--头像 -->
-        <div class="avatar" @click="avatarListShow">
-          <el-avatar :size="40" />
-          <div
-            class="avatarListContainer"
-            v-if="showAvatarListContainer"
-            @click.stop
-          >
-            <div class="avatarListContent">
-              <div class="avatarListTop">
-                <el-avatar :size="50" />
-                <p>Ausey</p>
-              </div>
-
-              <div class="avatarListMiddle">
-                <div class="avatarListMiddleItem">
-                  <p>2</p>
-                  <p>关注</p>
-                </div>
-
-                <div class="avatarListMiddleItem">
-                  <p>125</p>
-                  <p>赞过</p>
-                </div>
-
-                <div class="avatarListMiddleItem">
-                  <p>111</p>
-                  <p>收藏</p>
-                </div>
-              </div>
-
-              <div class="avatarListBottom">
-                <div class="avatarListBottomItem">
-                  <i class="icon iconfont icon-touxiang2"></i>
-                  <p>我的主页</p>
-                </div>
-
-                <div class="avatarListBottomItem">
-                  <i class="icon iconfont icon-liwu"></i>
-                  <p>成长福利</p>
-                </div>
-
-                <div class="avatarListBottomItem">
-                  <i class="icon iconfont icon-bijiben"></i>
-                  <p>闪念笔记</p>
-                </div>
-
-                <div class="avatarListBottomItem">
-                  <i class="icon iconfont icon-xiajiantou-03"></i>
-                  <p>会员中心</p>
-                </div>
-
-                <div class="avatarListBottomItem">
-                  <i class="icon iconfont icon-xinrenkecheng"></i>
-                  <p>课程中心</p>
-                </div>
-
-                <div class="avatarListBottomItem">
-                  <i class="icon iconfont icon-youhuiquan"></i>
-                  <p>我的优惠</p>
-                </div>
-
-                <div class="avatarListBottomItem">
-                  <i class="icon iconfont icon-qizhi"></i>
-                  <p>我的报名</p>
-                </div>
-
-                <div class="avatarListBottomItem">
-                  <i class="icon iconfont icon-zuji1"></i>
-                  <p>我的足迹</p>
-                </div>
-              </div>
-
-              <div class="loginOutContianer">
-                <p>我的设置</p>
-                <p>退出登录</p>
-              </div>
-            </div>
-          </div>
-        </div>
+          class="triangle"
+          @click="rotateTriangle"
+          :class="triangleFlag ? 'triangleRotate' : 'triangleRotateBack'"
+        ></div>
       </div>
     </div>
-  </div>
+    <!-- 首页列表 -->
+    <ul class="indexList" v-show="triangleFlag">
+      <li
+        v-for="(item, index) in functionsArr"
+        :key="index"
+        @click="clickFunctions(index)"
+        :class="currentIndex === index ? 'activeWorldColor' : ''"
+      >
+        {{ item }}
+      </li>
+    </ul>
+
+    <div class="searchAndRemindContainer">
+      <!-- 搜索 -->
+      <div class="searchContainer">
+        <el-form :model="form">
+          <el-form-item>
+            <el-input
+              v-model="form.keyword"
+              placeholder="探索稀土掘金"
+              class="searchInput"
+              @click="clickSearch"
+              @blur="ifClickSearch = false"
+            >
+      
+            </el-input>
+          </el-form-item>
+        </el-form>
+        <div class="searchBtn" :class="ifClickSearch ? 'activeSearchBtn' : ''">
+          <i class="icon iconfont icon-fangdajing1" v-if="!ifClickSearch"></i>
+          <i class="icon iconfont icon-fangdajing" v-else></i>
+        </div>
+      </div>
+
+      <!-- 提醒和头像 -->
+      <div class="remindAndAvatarContainer">
+        <i class="icon iconfont icon-tixing" @click="clickRemindList"></i>
+        <ul class="remindList" v-if="ifClickRemindList">
+          <li v-for="(item, index) in remindList" :key="index">{{ item }}</li>
+        </ul>
+
+        <el-avatar
+            shape="circle"
+            :size="40"
+            @click="clickAvatarList"
+          ></el-avatar>
+        <article class="avatarContainer" v-if="ifClickAvatarList">
+          <!-- 头像和用户名 -->
+          <section class="topAvatarContainer">
+            <el-avatar shape="circle" :size="40"></el-avatar>
+            <p>Ausey</p>
+          </section>
+
+          <!-- 关注、赞过和收藏 -->
+          <section class="midAvatarContainer">
+            <div class="midAvatarItem">
+              <p>2</p>
+              <p>关注</p>
+            </div>
+
+            <div class="midAvatarItem">
+              <p>3</p>
+              <p>赞过</p>
+            </div>
+
+            <div class="midAvatarItem">
+              <p>4</p>
+              <p>收藏</p>
+            </div>
+          </section>
+
+          <!-- 各项功能 -->
+          <section class="bottomAvatarContainer">
+            <div class="bottomAvatarItem">
+              <i class="icon iconfont icon-touxiang2"></i>
+              <p>我的主页</p>
+            </div>
+
+            <div class="bottomAvatarItem">
+              <i class="icon iconfont icon-liwu"></i>
+              <p>成长福利</p>
+            </div>
+
+            <div class="bottomAvatarItem">
+              <i class="icon iconfont icon-bijiben"></i>
+              <p>闪念笔记</p>
+            </div>
+
+            <div class="bottomAvatarItem">
+              <i class="icon iconfont icon-xiajiantou-03"></i>
+              <p>会员中心</p>
+            </div>
+
+            <div class="bottomAvatarItem">
+              <i class="icon iconfont icon-xinrenkecheng"></i>
+              <p>课程中心</p>
+            </div>
+
+            <div class="bottomAvatarItem">
+              <i class="icon iconfont icon-youhuiquan"></i>
+              <p>我的优惠</p>
+            </div>
+
+            <div class="bottomAvatarItem">
+              <i class="icon iconfont icon-qizhi"></i>
+              <p>我的报名</p>
+            </div>
+
+            <div class="bottomAvatarItem">
+              <i class="icon iconfont icon-zuji1"></i>
+              <p>我的足迹</p>
+            </div>
+          </section>
+
+          <!-- 我的设置和退出登录 -->
+          <section class="tailAvatarContainer">
+            <div>我的设置</div>
+            <div>退出登录</div>
+          </section>
+        </article>
+      </div>
+    </div>
+  </header>
 </template>
 
 <script setup lang="ts">
-import {
-  ref,
-  // Ref,
-  onMounted,
-  onBeforeMount,
-  watch,
-  nextTick,
-  onBeforeUnmount,
-} from "vue";
-import { Search } from "@element-plus/icons-vue";
+import { ref, Ref, watch, onMounted, onBeforeUnmount } from "vue";
 import "../icon/iconfont.css";
-import type { DrawerProps } from "element-plus";
+import { Search } from "@element-plus/icons-vue";
+let triangleFlag: Ref<boolean> = ref(false);
+
+//判断是否点击了三角形
+const rotateTriangle = (event: any) => {
+  event.stopPropagation();
+  triangleFlag.value = !triangleFlag.value;
+};
 
 let functionsArr: Ref<string[]> = ref([
   "首页",
@@ -303,78 +159,59 @@ let functionsArr: Ref<string[]> = ref([
   "AI刷题",
   "商城",
 ]);
-let currentIndex: Ref<number> = ref(0);
 
-const selectFunctionsArrItem = (index: number) => {
+// 判断点击了那个functions
+let currentIndex: Ref<number> = ref(0);
+const clickFunctions = (index: number) => {
   currentIndex.value = index;
 };
 
-// 处理点击三角形逻辑
-let triangleFlag: Ref<number, boolean> = ref(0);
-
-const rotateTriangle = () => {
-  triangleFlag.value = !triangleFlag.value;
+const handleIndexList = (event: any) => {
+  const indexList = document.querySelector(".indexList");
+  if (indexList && !indexList.contains(event.target)) {
+    triangleFlag.value = false;
+  }
 };
 
-let searchInput: Ref<string> = ref("");
-
-let isInputFocused: Ref<boolean> = ref(false);
-let searchBtn: any = ref();
-const clickInput = () => {
-  isInputFocused.value = true;
-};
-
-const blurInput = () => {
-  isInputFocused.value = false;
-};
-
-//创作者中心悬停三角形后出现的盒子
-let isHovering: Ref<boolean> = ref(false);
-
-const showHoverContent = () => {
-  isHovering.value = true;
-};
-
-const hideHoverContent = () => {
-  isHovering.value = false;
-};
-
-//创作者中心:写文章~草稿箱
-let centerHoverArr: Ref<any> = ref([
-  { todo: "写文章", imgSrc: "/src/image/header/writePaper.svg" },
-  { todo: "发沸点", imgSrc: "/src/image/header/writeFeiDian.svg" },
-  { todo: "写笔记", imgSrc: "/src/image/header/writeNote.svg" },
-  { todo: "写代码", imgSrc: "/src/image/header/writeCode.svg" },
-  { todo: "草稿箱", imgSrc: "/src/image/header/craft.svg" },
-]);
-
-//判断鼠标是否在钟上
-let zhongHover: Ref<boolean> = ref(false);
-
-// 简单的节流函数
-let throttle = (func: any, delay: number) => {
-  let lastCall = 0;
-  return function (...args: any) {
-    const now = new Date().getTime();
-    if (now - lastCall < delay) {
-      return;
+onMounted(() => {
+  //监听是否点击了三角形
+  watch(
+    () => triangleFlag.value,
+    (newVal) => {
+      if (newVal && triangleFlag.value) {
+        document.addEventListener("click", handleIndexList);
+      } else {
+        document.removeEventListener("click", handleIndexList);
+      }
     }
-    lastCall = now;
-    return func(...args);
-  };
-};
+  );
 
-// 应用节流机制到鼠标事件
-const mouseInZhong = throttle(() => {
-  zhongHover.value = true;
-  // console.log("zhongHover.value ",zhongHover.value );
-}, 200);
+  //监听是否点击了提醒
+  watch(
+    () => ifClickRemindList.value,
+    (newVal) => {
+      if (newVal && ifClickRemindList.value) {
+        document.addEventListener("click", handleRemindList);
+      } else {
+        document.removeEventListener("click", handleRemindList);
+      }
+    }
+  );
 
-const mouseLeaveZhong = throttle(() => {
-  zhongHover.value = false;
-}, 200);
+  //监听是否点击了头像
+  watch(
+    () => ifClickAvatarList.value,
+    (newVal) => {
+      if (newVal && ifClickAvatarList.value) {
+        document.addEventListener("click", handleAvatarList);
+      } else {
+        document.removeEventListener("click", handleAvatarList);
+      }
+    }
+  );
+});
 
-let zhongListArr: Ref<any> = ref([
+let remindList: Ref<any> = ref([
   "评论",
   "赞和收藏",
   "新增粉丝",
@@ -382,84 +219,53 @@ let zhongListArr: Ref<any> = ref([
   "系统通知",
 ]);
 
-//头像下的列表
-//控制列表是否出现
-let showAvatarListContainer: Ref<boolean> = ref(false);
-const avatarListShow = (event: any) => {
-  showAvatarListContainer.value = !showAvatarListContainer.value;
+//判断是否点击了提醒
+let ifClickRemindList: Ref<boolean> = ref(false);
+
+const clickRemindList = (event: any) => {
   event.stopPropagation();
+  ifClickRemindList.value = !ifClickRemindList.value;
 };
 
-//点击空白处关闭avatarList
+const handleRemindList = (event: any) => {
+  const remindList = document.querySelector(".remindList");
+  if (remindList && !remindList.contains(event.target)) {
+    ifClickRemindList.value = false;
+  }
+};
+
+//判断是否点击了头像
+let ifClickAvatarList: Ref<boolean> = ref(false);
+
+const clickAvatarList = (event: any) => {
+  event.stopPropagation();
+  ifClickAvatarList.value = !ifClickAvatarList.value;
+};
+
 const handleAvatarList = (event: any) => {
-  const avatarListElement = document.querySelector(".avatarListContainer");
-  if (avatarListElement && !avatarListElement.contains(event.target)) {
-    showAvatarListContainer.value = false;
-    event.stopPropagation();
+  const avatarList = document.querySelector(".avatarContainer");
+  if (avatarList && !avatarList.contains(event.target)) {
+    ifClickAvatarList.value = false;
   }
 };
 
-//小于1180下的列表
-//控制列表是否出现
-
-const functionsListShow = (event: any) => {
-  triangleFlag.value = !triangleFlag.value;
-  event.stopPropagation();
-};
-
-let functionsListItemCurrentIndex: Ref<number> = ref(0);
-const clickFunctionsListItem = (index: number) => {
-  functionsListItemCurrentIndex.value = index;
-};
-//点击空白处关闭functionsList
-const handleFunctionsList = (event: any) => {
-  const functionsListElement = document.querySelector(".functionsList");
-  if (functionsListElement && !functionsListElement.contains(event.target)) {
-    triangleFlag.value = false;
-    event.stopPropagation();
-  }
-};
-
-onMounted(() => {
-  watch(
-    () => showAvatarListContainer.value,
-    async (newVal) => {
-      if (newVal) {
-        await nextTick();
-        if (showAvatarListContainer.value)
-          document.addEventListener("click", handleAvatarList);
-      }
-    }
-  );
-
-  watch(
-    () => triangleFlag.value,
-    async (newVal) => {
-      if (newVal) {
-        await nextTick();
-        if (triangleFlag.value)
-          document.addEventListener("click", handleFunctionsList);
-      }
-    }
-  );
+//搜索框
+const form = ref({
+  keyword: "",
 });
 
-onBeforeMount(() => {
-  document.removeEventListener("click", handleAvatarList);
-});
+let ifClickSearch: Ref<boolean> = ref(false);
+const clickSearch = (event: any) => {
+
+  ifClickSearch.value = true;
+};
 </script>
-  
-  <style lang="scss">
+
+<style scoped lang="scss">
 .center {
   display: flex;
+  align-items: center;
   justify-content: center;
-  align-items: center;
-}
-
-.side {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
 }
 
 .start {
@@ -468,693 +274,74 @@ onBeforeMount(() => {
   align-items: center;
 }
 
-$functionsColor: #535968;
-$functionsHovorColor: #252933;
-$functionsBottomColor: #1e80ff;
-$headerFontColor: #1e80ff;
-$triangleColor: #515767;
-$centerBtnColor: #1e80ff;
-$centerBtnHoverColor: #1171ee;
-.basicTriangle {
-  width: 0px;
-  height: 0px;
-  border-right: 0.3rem solid transparent;
-  border-left: 0.3rem solid transparent;
-  border-top: 0.3rem solid $triangleColor;
-  border-radius: 28%;
+.between {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
 }
 
-body {
-  background-color: #f2f3f5;
-}
-
+$defaultTriangleColor: #515767;
+$deepWorldColor: #1e82ff;
+$activeTriangleColor: #1e80ff;
+$defaultWorldColor: #5b6170;
 * {
   padding: 0;
   margin: 0;
 }
+
 .headerContainer {
-  // background: #ffffff !important;
-  background-color: yellow !important;
+  background-color: yellow;
+  @extend .between;
+  position: relative;
+  // padding: 0.75rem 0px;
+  // padding-left: 0.875rem;
+  padding: 0.25rem 0px;
+  padding-left: 0.3rem;
   user-select: none;
-
-  // padding:0.3rem 0rem;
-  // padding-left: 5rem;
-  @extend .center;
-  // padding-left: -5rem;;
-  //  background-color: red;
-  .headerContent {
-    @extend .side;
-    // background-color: yellow;
-  }
-
+  // 首页和logo图片的容器
   .logoContainer {
-    margin-right: 5px;
-  }
-
-  .functionsContainer {
-    // background-color: purple;
-    @extend .center;
-
-    .functionsContent {
-      // background-color: aqua;
-      // width: 3rem;
-      // width: 10px;
-      @extend .center;
-      margin-right: 2px;
-      color: $functionsColor;
-      font-size: 1rem;
-      cursor: pointer;
-      height: 100%;
-      padding: 1rem 0px;
-      font-size: 1rem;
-      border-bottom: 0.2rem solid transparent;
-
-      &.active {
-        color: $headerFontColor;
-      }
-    }
-
-    .functionsContent:hover {
-      color: $functionsHovorColor;
-      border-bottom: 0.2rem solid $functionsBottomColor;
-    }
-  }
-}
-
-.appContainer {
-  //   background-color: yellow;
-  @extend .center;
-  div {
-    margin-right: 0.5rem;
-    color: $functionsColor;
-    width: 2rem;
-    // background-color: red;
-    cursor: pointer;
-  }
-}
-@media screen and (max-width: 1260px) {
-  .appContainer {
-    display: none;
-  }
-}
-
-.hiddenLogoBig650 {
-  display: none;
-}
-
-.big1180Show {
-  display: block;
-}
-
-.small1180Show {
-  display: none;
-}
-
-.active {
-  color: $headerFontColor !important;
-}
-
-.small1180Show {
-  position: relative;
-  .small1180ShowContent {
-    .wordContainer {
-      @extend .center;
-      width: 3.1rem;
-      // background-color: red;
-    }
-    @extend .side;
-    color: $functionsBottomColor;
-  }
-
-  .functionsList {
-    position: absolute;
-    width: 10rem;
-    // height:5rem;
-    // background-color: red;
-    margin-top: 0.6rem;
-    margin-left: -4rem;
-    border-radius: 1rem;
-
-    .functionsListItem {
-      padding: 1rem 2rem;
-      // background-color: yellow;
-      @extend .center;
-      background-color: white;
-      font-size: 0.8rem;
-      color: #515767;
-    }
-  }
-}
-
-@media screen and (max-width: 1180px) {
-  .headerContainer {
-    margin-left: 0.1rem;
-  }
-  .logoContainer {
-  }
-
-  .small1180ShowContent {
-    .triangle {
-      margin-right: 13rem;
-    }
-  }
-}
-
-@media screen and (max-width: 960px) {
-
-  .searchContianer .el-input__inner {
-    width: 15rem !important;
-  }
-
-  .headerContainer {
-    margin-left: 0.15rem;
-  }
-
-  .logoContainer {
-    transform: translate(2rem);
-  }
-  .small1180Show {
-    transform: translate(2rem);
-  }
-
-  .small1180ShowContent {
-    .triangle {
-      margin-right: 10rem;
-    }
-  }
-
-  .memberAndAvatarContainer {
-    transform: translate(-7rem) !important;
-    .memberContainer {
-      display: none !important;
-    }
-  }
-}
-
-@media screen and (max-width: 800px) {
-  .headerContainer {
-    // margin-left: 0.5rem;
-    background-color: yellow !important;
-    padding-right: 15rem !important;
-  }
-
-  .logoContainer {
-    transform: translate(5rem);
-  }
-
-  .small1180Show {
-    transform: translate(5em);
-  }
-
-  .centerContent{
-    display: none !important;
-  }
- 
-
-  .searchAndCenterContainer{
-    transform: translate(20rem);
-   
-    .searchContianer .el-input__inner {
-    width: 10rem !important;
-  
-    // background-color: purple;
-  }
-    .searchContianer{
-      width: 13rem !important;
-    }
-  }
-  .memberAndAvatarContainer{
-    transform: translate(-1rem) !important;
-    background-color: blue;
-
-  }
-
-  
-
-
-}
-
-.triangle {
-  @extend .basicTriangle;
-  margin-left: 3px;
-  animation: triangleRotateBack 0.2s forwards;
-}
-
-.triangleChangeBlue {
-  animation: triangleRotate 0.2s forwards;
-  border-top: 0.4rem solid $functionsBottomColor;
-}
-
-.qimiao img {
-  height: 10px;
-  margin-right: 5px;
-}
-
-.searchAndCenterContainer {
-  @extend .side;
-  position: relative;
-  margin-left: 2.5rem;
-
-  .searchContianer {
-    position: absolute;
-    // background: aqua;
-    // margin-right: 15rem;
-    //  background-color: red;
-    //  padding: 0rem 10rem;
-    @extend .side;
-    // margin-right: 10px;
-    //表单样式
-    .el-input__wrapper {
-      // position: absolute;
-      left: 0;
-      border-radius: 1px;
-      padding: 0;
-      padding-left: 5px;
-    }
-    .el-input {
-      font-size: 0.8rem;
-      // width: 3px;
-    }
-
-    //搜索表单的长度和宽度
-    .el-input__inner {
-      // width: 35px;
-      // height: 8px;
-
-      width: 20rem;
-      height: 2.3rem;
-    }
-
-    .el-button--primary {
-      background-color: #f2f3f5;
-    }
-
-    //搜索按钮样式
-    .el-button {
-      // position: absolute;
-      width: 3.2rem;
-      height: 2.5rem;
-      // width:8.5px;
-      // height:8.5px;
-      padding: 0.03rem;
-      border-radius: 5%;
-      border-color: #ffffff;
-
-      .el-icon {
-        width: 1.4rem;
-        height: 1.4rem;
-        // width: 5px;
-        // height: 5px;
-        color: #515767;
-      }
-    }
-  }
-
-  //创作者中心
-  .centerContainerDisapear {
-    display: none;
-  }
-  .centerContainer {
-    position: absolute;
-
-    .centerContent {
-      @extend .side;
-    }
-
-    margin-left: 26.5rem;
-    .el-button {
-      height: 2.3rem;
-      font-size: 1rem;
-      border-radius: 0%;
-      border-top-left-radius: 0.3rem;
-      border-bottom-left-radius: 0.3rem;
-      padding: 0;
-      padding: 0rem 1.5rem;
-      background-color: $centerBtnColor;
-      &:hover {
-        background-color: $centerBtnHoverColor;
-      }
-    }
-
-    .triangleContainer {
-      @extend .center;
-      width: 1rem;
-      height: 2.3rem;
-      background-color: $centerBtnColor;
-      border-radius: 0%;
-      border-top-right-radius: 0.3rem;
-      border-bottom-right-radius: 0.3rem;
-      cursor: pointer;
-      &:hover {
-        background-color: $centerBtnHoverColor;
-        .centerTriangle {
-          animation: triangleRotate 0.2s forwards;
-        }
-        // .centerHoverContent {
-        //   display: block !important;
-        // }
-      }
-      .centerTriangle {
-        @extend .basicTriangle;
-        border-top: 0.3rem solid white;
-      }
-    }
-
-    .centerHoverContent {
-      background-color: transparent;
-      @extend .center;
-      position: absolute;
-      width: 27rem;
-      // height: 27rem;
-      // background-color: red;
-      margin-top: 20rem;
-      margin-left: -25rem;
-      border-radius: 2%;
-      padding-top: 2rem;
-      cursor: default;
-      .centerHover {
-        width: 27rem;
-        // height: 25rem;
-        // background-color: aqua;
-        background: #ffffff;
-        box-shadow: 0rem 0rem 0.5rem 0rem #ccc;
-        border-radius: 2%;
-        cursor: pointer;
-        padding-top: 1rem;
-        padding-right: 2rem;
-        padding-left: 2rem;
-        .centerHoverTop {
-          @extend .side;
-          border-bottom: 1px solid #ccc;
-          padding-bottom: 1rem;
-          .topItem {
-            display: flex;
-            flex-direction: column;
-            justify-content: space-around;
-            align-items: center;
-            // background: purple;
-            text {
-              margin-top: -0.2rem;
-              color: #666b79;
-              font-size: 1rem;
-            }
-          }
-        }
-      }
-    }
-  }
-}
-
-@media screen and (max-width: 1350px) {
-  .searchContianer {
-    margin-left: 5rem;
-  }
-  .searchContianer .el-input__inner {
-    width: 10rem !important;
-  }
-
-  .centerContainer {
-    margin-left: 20rem !important;
-  }
-
-  .memberAndAvatarContainer {
-    transform: translateX(-5rem);
-  }
-
-  .functionsContent {
-    // width: 45px;
-
-    // background-color: yellow;
-    // position: absolute;
-    // font-size: 0.6rem !important;
-    width: 3rem;
-    // color: red !important;
-  }
-
-  .functionsContainer {
-    // background-color: purple;
-  }
-
-  .headerContainer {
-    width: 100vw !important;
-    // background-color: yellow !important;
-    padding-right: 5rem;
-    padding-left: 9rem;
-  }
-  // .logoContainer{}
-}
-
-@media screen and (max-width: 1260px) {
-  .searchContianer {
-    width: 20rem !important;
-    margin-left: -1rem;
-  }
-}
-
-@media screen and (max-width: 1490px) {
-  .headerContent {
-    margin-left: -4rem;
-  }
-}
-
-//点击输入表单之后，搜索按钮样式改变
-.focused-btn {
-  border: 0.1rem solid transparent !important; // 蓝色边框
-
-  .el-button--primary {
-    background-color: red !important;
-  }
-  .el-icon {
-    color: #409eff !important; // 图标蓝色
-  }
-}
-
-//点击输入表单之后，宽度变长
-.focused-input .el-input__inner {
-  animation: expandWidth 0.2s forwards; // 添加 forwards 来确保动画完成后保留最终状态
-}
-
-.focused-inputBack .el-input__inner {
-  animation: expandWidthBack 0.2s forwards; // 添加 forwards 来确保动画完成后保留最终状态
-}
-
-.centerHoverBottom {
-  margin-top: 1rem;
-  .inspirationAndMoreContaienr {
-    @extend .side;
-    margin-bottom: 1rem;
-    .inspiration {
-      color: #4a4d55;
-      font-weight: 600;
-      font-size: 1.2rem;
-    }
-    .more {
-      color: #8a919f;
-    }
-  }
-
-  .allKindInspirationContainer {
-    .inspirationItem {
-      display: flex;
-      justify-content: flex-start;
-      .el-tag {
-        padding: 0.1rem 0.2rem;
-        height: 5px;
-        font-size: 3px;
-        border-radius: 8%;
-        margin-right: 0.5rem;
-      }
-
-      margin-bottom: 1rem;
-      color: #272b35;
-    }
-  }
-}
-
-.memberAndAvatarContainer {
-  @extend .side;
-
-  // background-color: purple;
-  margin-left: 37rem;
-
-  .memberContainer {
-    margin-right: 0.6rem;
+    @extend .start;
+    // logo图片
     img {
-      margin-right: 0.1rem;
-      width: 1.5rem;
-      height: 1.7rem;
+      margin-right: 7px;
     }
-    color: #8b929f;
-    font-size: 0.9rem;
-    p {
-      width: 2rem;
-    }
-
-    @extend .side;
-  }
-
-  .zhong {
-    margin-right: 0.8rem;
-    position: relative;
-    cursor: pointer;
-    i {
-      font-size: 2rem;
-    }
-
-    .zhongListContainer {
-      position: absolute;
-      width: 10rem;
-      // height: 20rem;
-      // margin-top: 0.1rem;
-      margin-left: -8rem;
-      background-color: transparent;
-      display: flex;
-      justify-content: center;
-      .zhongListContent {
-        width: 12rem;
-        box-shadow: 0rem 0rem 0.5rem 0rem #ccc;
-        border-radius: 0.3rem;
-        margin-top: 0.5rem;
-        background-color: #ffffff;
-        padding: 0.6rem 0rem;
-        .zhongListItem {
-          width: 8rem;
-          padding: 0.7rem 0.5rem;
-          margin-left: 0.5rem;
-          color: #515767;
-          &:hover {
-            background-color: #f7f8fa;
-            border-radius: 0.3rem;
-          }
-        }
-      }
-    }
-
-    .zhongListContainerDisappear {
-      display: none;
-    }
-  }
-
-  // 鼠标悬停到钟上
-  .zhongIn {
-    color: red !important;
-    cursor: pointer;
-  }
-}
-
-@media screen and (max-width: 1249px) {
-  .memberContainer p {
-    display: none;
-  }
-}
-
-.avatar {
-  position: relative;
-  cursor: pointer;
-  .avatarListContainer {
-    position: absolute;
-    padding: 0.8rem;
-
-    margin-left: -15rem;
-    border-radius: 2%;
-    margin-top: 0.3rem;
-    background-color: #ffffff;
-    box-shadow: 0rem 0rem 0.1rem 0rem #ccc;
-    z-index: 999;
-    cursor: pointer;
-    @extend .center;
-    .avatarListContent {
-      // background-color: green;
-      // padding: 0.5rem;
-      .avatarListTop {
-        @extend .start;
-        .el-avatar {
-          margin-right: 0.5rem;
-        }
-      }
-
-      .avatarListMiddle {
-        @extend .side;
-        border-bottom: 0.1rem solid #f1f2f5;
-        // background-color: blue;
-
-        .avatarListMiddleItem {
-          display: flex;
-          // background-color: red;
-          flex-direction: column;
-          justify-content: center;
-          align-items: center;
-          margin: 1rem;
-          // margin-right: 2.5rem;
-          p:nth-child(1) {
-            color: #252933;
-          }
-          p:nth-child(2) {
-            color: #8a919f;
-            margin-top: 0.3rem;
-            font-size: 0.8rem;
-          }
-        }
-      }
-
-      .avatarListBottom {
-        width: 15rem;
-        @extend .side;
-        flex-wrap: wrap;
-        margin-top: 1rem;
-        border-bottom: 0.1rem solid #f1f2f5;
-        padding-left: 0.5rem;
-        .avatarListBottomItem {
-          margin-bottom: 1rem;
-          @extend .start;
-          i {
-            margin-right: 0.5rem;
-            font-size: 1.5rem;
-          }
-          p {
-            color: #252933;
-            font-size: 0.9rem;
-            //  font-weight: 600;
-          }
-        }
-      }
-      .loginOutContianer {
-        @extend .side;
-        font-size: 1rem;
-        color: #8a919f;
-        font-size: 0.8rem;
-        margin: 1rem 0rem;
-        margin-bottom: 0.5rem;
+    // 首页列表
+    .indexContainer {
+      color: $deepWorldColor;
+      @extend .start;
+      .triangle {
+        width: 0;
+        height: 0;
+        cursor: pointer;
+        border-left: 0.3rem solid transparent;
+        border-right: 0.3rem solid transparent;
+        border-top: 0.3rem solid $defaultTriangleColor;
+        margin-left: 4px;
       }
     }
   }
 }
 
-@keyframes expandWidth {
-  from {
-  }
-  to {
-    width: 25rem; // 目标宽度
-  }
+.triangleRotate {
+  animation: rotateTriangle 0.2s forwards !important;
+  border-top: 0.3rem solid $activeTriangleColor !important;
 }
 
-@keyframes expandWidthBack {
-  from {
-    width: 25rem; // 初始宽度
-  }
-  to {
-  }
+.triangleRotateBack {
+  animation: rotateTriangleBack 0.2s forwards !important;
+  border-top: 0.3rem solid $defaultTriangleColor !important;
 }
 
-@keyframes triangleRotate {
+@keyframes rotateTriangle {
   0% {
+    transform: rotate(0deg);
   }
   100% {
     transform: rotate(-180deg);
   }
 }
 
-@keyframes triangleRotateBack {
+@keyframes rotateTriangleBack {
   0% {
     transform: rotate(-180deg);
   }
@@ -1163,37 +350,192 @@ body {
   }
 }
 
-// 媒体查询
-@media screen and (max-width: 650px) {
-  .hiddenLogoBig650 {
-    display: block;
+.indexList {
+  position: absolute;
+  background-color: #ffffff;
+  top: 3.4rem;
+  left: 0;
+  box-shadow: 0rem 0rem 0.1rem 0rem rgba(0, 0, 0, 0.3);
+  border-radius: 0.3rem;
+  li {
+    color: $defaultWorldColor;
+    padding: 1rem;
+    padding-left: 3.5rem;
+    padding-right: 3.5rem;
+    font-size: 0.9rem;
+    cursor: pointer;
+  }
+}
+
+.activeWorldColor {
+  color: $activeTriangleColor !important;
+}
+
+.remindAndAvatarContainer {
+  position: relative;
+  cursor: pointer;
+
+  @extend .start;
+  i {
+    font-size: 1.8rem;
+    color: #8a919f !important;
   }
 
-  .hiddenLogoSmall650 {
+  //点击提醒出现的列表
+  .remindList {
+    position: absolute;
+    color: #666b79;
+    font-size: 0.8rem;
+    background-color: #ffffff;
+    box-shadow: 0rem 0rem 0.2rem 0rem rgba(0, 0, 0, 0.3);
+    border-radius: 0.3rem;
+    top: 3rem;
+    left: -7rem;
+
+    li {
+      padding: 0.6rem 0.8rem;
+      padding-right: 5rem;
+      cursor: pointer;
+    }
+  }
+
+  //点击头像出现的列表
+  .avatarContainer {
+    width: 12rem;
+    position: absolute;
+    background-color: #ffffff;
+    top: 3rem;
+    left: -8rem;
+    padding-bottom: 0.2rem;
+    border-radius: 0.3rem;
+    box-shadow: 0rem 0rem 0.1rem 0rem rgba(0, 0, 0, 0.2);
+    padding-left: 1rem;
+    padding-right: 1rem;
+    padding-top: 0.8rem;
+    //头像和列表
+    .topAvatarContainer {
+      display: flex;
+      justify-content: flex-start;
+      p {
+        margin-left: 0.5rem;
+        color: #252933;
+      }
+    }
+
+    // 关注、赞过和收藏
+    .midAvatarContainer {
+      @extend .between;
+      border-bottom: 0.1rem solid #f1f2f5;
+      margin-top: 0.4rem;
+      .midAvatarItem {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        padding: 0rem 0.8rem;
+        p:nth-child(2) {
+          color: #8a919f;
+          font-size: 0.8rem;
+        }
+        padding-bottom: 0.8rem;
+      }
+    }
+
+    // 各项功能
+    .bottomAvatarContainer {
+      margin-top: 1rem;
+      display: flex;
+      flex-wrap: wrap;
+
+      .bottomAvatarItem {
+        i {
+          font-size: 1rem;
+          margin-right: 0.3rem;
+        }
+        font-size: 0.8rem;
+        color: #252933;
+        @extend .start;
+        width: 50%; // 设置宽度为50%，实现两列布局
+        padding: 0.3rem 0; // 添加上下间距
+      }
+      padding-bottom: 0.5rem;
+      border-bottom: 0.1rem solid #f1f2f5;
+    }
+
+    // 我的设置和退出登录
+    .tailAvatarContainer {
+      cursor: pointer;
+      @extend .between;
+      margin-top: 0.7rem;
+      margin-bottom: 0.7rem;
+      font-size: 0.7rem;
+      color: #8a919f;
+    }
+  }
+}
+
+.searchAndRemindContainer {
+  @extend .between;
+  margin-right: 0.2rem;
+  background-color: blue;
+
+  .searchContainer {
+  @extend .between;
+  border-radius: 0.3rem;
+  background-color: green;
+  display: flex; 
+  align-items: stretch; 
+  width: 8.5rem;
+  
+  :deep(.el-input__wrapper)  {
+    border-radius:0;
+  }
+
+  @media screen and (max-width: 321px) {
     display: none;
   }
+
+  //搜索按钮
+  .searchBtn {
+    @extend .center;
+    background-color: #f2f3f5;
+    cursor: pointer;
+    border-radius: 0 0.3rem 0.3rem 0;
+    padding: 0 0.5rem;
+    display: flex;
+    align-items: center;
+    // 关键修改：使用与 Element Plus 输入框相同的高度
+    // height:2rem; // Element Plus 默认输入框高度
+    
+  }
 }
 
-@media screen and (max-width: 1180px) {
-  .big1180Show {
-    display: none !important; // 小屏幕隐藏
+
+    //被激活的搜索按钮
+    .activeSearchBtn {
+      background-color: #EAF2FF!important;
+    }
   }
 
-  .small1180Show {
-    display: block !important; // 小屏幕显示
-  }
-}
+  // @media screen and (min-width: 320px) and (max-width:330px) {
+  //   .icon-tixing{
+  //     margin: 0 0.7rem;
+  //   }
+  // }
 
-@media (max-width: 1200px) {
-  /* 针对桌面大屏 */
-}
-@media (max-width: 992px) {
-  /* 针对平板设备 */
-}
-@media (max-width: 768px) {
-  /* 针对小屏幕 */
-}
-@media (max-width: 576px) {
-  /* 针对手机 */
-}
+  // @media screen and (min-width: 330px) and (max-width:360px) {
+  //   .icon-tixing{
+  //     margin: 0 0.8rem;
+  //   }
+  // }
+
+  // @media screen and (min-width: 360px) and (max-width:376px) {
+  //   .icon-tixing{
+  //     margin: 0 1.2rem;
+  //   }
+
+
+  // }
+
 </style>
+
